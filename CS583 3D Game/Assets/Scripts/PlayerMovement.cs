@@ -1,46 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    [SerializeField]
+    private CharacterController controller;
 
-    public float speed = 12f;
-    public float gravity = -9.81f;
-    public float jumpHeight = 3f;
+    public float speed = 12f; //get from stats later
+    
+    [SerializeField]
+    private float gravity = -9.81f;
+    [SerializeField]
+    private float jumpHeight = 3f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    [SerializeField]
+    private Transform groundCheck;
+    [SerializeField]
+    private float groundDistance = 0.4f;
+    [SerializeField]
+    private LayerMask groundMask;
+    [SerializeField]
+    private float restingVal = -3f; //needs to be negative because gravity is down
 
-    Vector3 velocity;
+    Vector3 fallVelocity;
     bool  isGrounded;
     
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //detects if the player is near a "Ground"-layer object
 
-        if(isGrounded && velocity.y < 0)
+        if(isGrounded && fallVelocity.y < 0) //used to apply a slight gravity-like effect when on the ground
         {
-            velocity.y = -2f;
+            fallVelocity.y = restingVal;
         }
 
+        //get controls for player
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        //apply the controls on a local scale
         Vector3 move = transform.right * x + transform.forward * z;
-
         controller.Move(move * speed * Time.deltaTime);
 
+        //allows player to jump, using physics
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            fallVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
+        //calculates gravity
+        fallVelocity.y += gravity * Time.deltaTime;
+        controller.Move(fallVelocity * Time.deltaTime);
     }
 }
