@@ -21,10 +21,10 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Check if we hit a target
-        Target target = other.GetComponent<Target>();
+        EnemyStats target = other.GetComponent<EnemyStats>();
         if (target != null)
         {
-            target.TakeDamage(damage);
+            target.takeDamage(damage);
         }
 
         // destroy bullet on hit — important!

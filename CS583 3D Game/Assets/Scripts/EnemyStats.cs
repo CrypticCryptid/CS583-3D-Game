@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
+    private Renderer rend;
 
     [Header("Stats")]
     public float maxHealth = 100f;
@@ -12,9 +13,14 @@ public class EnemyStats : MonoBehaviour
     public int pointValue = 10;
 
 
-    void Awake()
+    void Start()
     {
         currentHealth = maxHealth;
+        rend = GetComponent<Renderer>();
+        if (rend != null)
+        {
+            rend.material.color = Color.green;
+        }
     }
 
     public void Die()
@@ -26,7 +32,15 @@ public class EnemyStats : MonoBehaviour
     {
         float effectiveDamage = amount * (1 - resistance);
         currentHealth -= effectiveDamage;
-        if (currentHealth <= 0)
+
+        
+        if (rend != null)
+        {
+            float t = Mathf.Clamp01(currentHealth / maxHealth);
+            rend.material.color = Color.Lerp(Color.red, Color.green, t);
+        }
+
+        if (currentHealth <= 0f)
         {
             Die();
         }
