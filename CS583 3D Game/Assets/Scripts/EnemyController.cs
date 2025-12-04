@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform; //uses tag to find the "Player"
+        agent.speed = GetComponent<EnemyStats>().speed;
     }
 
     void Update()
