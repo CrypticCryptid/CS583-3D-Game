@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 68454725}
   - component: {fileID: 68454724}
   - component: {fileID: 68454723}
+  - component: {fileID: 68454729}
   m_Layer: 7
   m_Name: Enemy (4)
   m_TagString: Untagged
@@ -266,6 +267,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1486761470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &68454729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68454722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8894d32d5ff6004eacb66b78539f61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  damage: 10
+  speed: 3
+  resistance: 0
+  pointValue: 10
 --- !u!1 &124514018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,6 +1645,7 @@ GameObject:
   - component: {fileID: 1031723340}
   - component: {fileID: 1031723339}
   - component: {fileID: 1031723338}
+  - component: {fileID: 1031723344}
   m_Layer: 7
   m_Name: Enemy (2)
   m_TagString: Untagged
@@ -1755,6 +1775,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1486761470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1031723344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031723337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8894d32d5ff6004eacb66b78539f61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  damage: 10
+  speed: 3
+  resistance: 0
+  pointValue: 10
 --- !u!1 &1163531005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,6 +1948,7 @@ GameObject:
   - component: {fileID: 1199706275}
   - component: {fileID: 1199706280}
   - component: {fileID: 1199706279}
+  - component: {fileID: 1199706281}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -2039,6 +2078,24 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1199706281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199706274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8894d32d5ff6004eacb66b78539f61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  damage: 10
+  speed: 3
+  resistance: 0
+  pointValue: 10
 --- !u!1 &1210260557
 GameObject:
   m_ObjectHideFlags: 0
@@ -2406,6 +2463,7 @@ GameObject:
   - component: {fileID: 1502706945}
   - component: {fileID: 1502706944}
   - component: {fileID: 1502706943}
+  - component: {fileID: 1502706949}
   m_Layer: 7
   m_Name: Enemy (3)
   m_TagString: Untagged
@@ -2535,6 +2593,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1486761470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1502706949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502706942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8894d32d5ff6004eacb66b78539f61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  damage: 10
+  speed: 3
+  resistance: 0
+  pointValue: 10
 --- !u!1 &1540282793
 GameObject:
   m_ObjectHideFlags: 0
@@ -3101,6 +3177,7 @@ GameObject:
   - component: {fileID: 2074240823}
   - component: {fileID: 2074240822}
   - component: {fileID: 2074240821}
+  - component: {fileID: 2074240827}
   m_Layer: 7
   m_Name: Enemy (1)
   m_TagString: Untagged
@@ -3230,6 +3307,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1486761470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2074240827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074240820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8894d32d5ff6004eacb66b78539f61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  damage: 10
+  speed: 3
+  resistance: 0
+  pointValue: 10
 --- !u!1 &2092777986
 GameObject:
   m_ObjectHideFlags: 0
