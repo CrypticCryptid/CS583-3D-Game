@@ -1658,11 +1658,17 @@ MonoBehaviour:
   startTimer: 5
   templates:
   - {fileID: 11400000, guid: 41896d3fc742632428c233d5f7e8df06, type: 2}
+  - {fileID: 11400000, guid: bcba70ee849fec54fa8c497d198eb4c8, type: 2}
+  - {fileID: 11400000, guid: 0df02d96acaf12542973e420ff3d8cbb, type: 2}
+  - {fileID: 11400000, guid: a1edc7254bd37464ab3ab33922525a5d, type: 2}
+  - {fileID: 11400000, guid: bc5144956ce29f045b46b4cd6908bced, type: 2}
   spawnPoints:
   - {fileID: 1115111450}
   - {fileID: 873450325}
   - {fileID: 714723719}
   - {fileID: 252544036}
+  enemiesCap: 25
+  waveIncrements: 00000000050000000a0000000f00000014000000
 --- !u!4 &1726007702
 Transform:
   m_ObjectHideFlags: 0

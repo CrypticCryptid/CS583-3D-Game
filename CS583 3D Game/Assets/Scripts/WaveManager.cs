@@ -7,14 +7,23 @@ public class WaveManager : MonoBehaviour
     public float startTimer;
     float timer;
 
-    public WaveTemplate[] templates;
+    public WaveTemplate[] templates; //pair indexes with waveIncrements
     public Transform[] spawnPoints;
+
+    private List<GameObject> curEnemies = new List<GameObject>();
     
+    [SerializeField]
+    private int enemiesCap;
     WaveTemplate currTemp;
+
+    [SerializeField]
+    private int[] waveIncrements; //pair indexes with templates
+    private int waveNum;
 
     void Start()
     {
         currTemp = templates[0];
+        waveNum = 0;
 
         timer = startTimer;
     }
@@ -30,16 +39,30 @@ public class WaveManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
+
+        for (int i = 0; i < waveIncrements.Length; i++)
+        {
+            if(waveNum >= waveIncrements[i])
+            {
+                currTemp = templates[i];
+            }
+        }
     }
 
     public void SpawnEnemies()
-    {
+    {   
+        if((enemiesCap - curEnemies.Count) < currTemp.enemiesAmount) return;
+        
         for (int i = 0; i < currTemp.enemiesAmount; i++)
         {
             int ranPos = Random.Range(0, spawnPoints.Length);
 
-            Instantiate(PickEnemy(), spawnPoints[ranPos].position, Quaternion.identity);
+            GameObject enemy = Instantiate(PickEnemy(), spawnPoints[ranPos].position, Quaternion.identity);
+            enemy.GetComponent<EnemyStats>().SetManager(this);
+            curEnemies.Add(enemy);
         }
+
+        waveNum++;
     }
 
     public GameObject PickEnemy()
@@ -72,5 +95,10 @@ public class WaveManager : MonoBehaviour
         }
 
         return currTemp.cEnemies[0];
+    }
+
+    public void RemoveEnemy(GameObject enemy)
+    {
+        curEnemies.Remove(enemy);
     }
 }

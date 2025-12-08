@@ -5,6 +5,8 @@ public class EnemyStats : Stats, ITakeDamage
     [Header("Stats")]
     public int pointValue;
 
+    private WaveManager manager;
+
     protected override void Start()
     {
         //assign stuff
@@ -20,6 +22,12 @@ public class EnemyStats : Stats, ITakeDamage
     public override void Die()
     {
         // Handle enemy death
+        manager.RemoveEnemy(gameObject);
         Destroy(gameObject);
+    }
+
+    public void SetManager(WaveManager obj)
+    {
+        manager = obj;
     }
 }
