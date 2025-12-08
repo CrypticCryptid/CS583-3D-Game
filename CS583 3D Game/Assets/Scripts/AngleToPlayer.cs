@@ -38,7 +38,8 @@ public class AngleToPlayer : MonoBehaviour
 
         lastIndex = GetIndex(angle);
 
-        spriteRenderer.sprite = fixedSprites[lastIndex];
+        if(fixedSprites.Length > 0)
+            spriteRenderer.sprite = fixedSprites[lastIndex];
     }
 
     //This function returns the index associated with the direction that the object is facing and the side that should be showing to the camera
