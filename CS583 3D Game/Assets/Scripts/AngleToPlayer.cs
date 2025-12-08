@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AngleToPlayer : MonoBehaviour
@@ -8,11 +6,12 @@ public class AngleToPlayer : MonoBehaviour
     private Vector3 targetPos;
     private Vector3 targetDir;
 
+    //if object has no animations, use fixedSprites
     private SpriteRenderer spriteRenderer;
-    //public Sprite[] sprites;
+    public Sprite[] fixedSprites;
 
-    private float angle;
-    public int lastIndex;
+    private float angle; //angle to player
+    public int lastIndex; //previous facing direction
 
     void Start()
     {
@@ -25,7 +24,7 @@ public class AngleToPlayer : MonoBehaviour
         targetPos = new Vector3(player.position.x, transform.position.y, player.position.z);
         targetDir = targetPos - transform.position;
 
-        angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
+        angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up); //calculates angle to player
 
         //[!!!] Used to flip Sprite
 
@@ -39,9 +38,10 @@ public class AngleToPlayer : MonoBehaviour
 
         lastIndex = GetIndex(angle);
 
-        //spriteRenderer.sprite = sprites[lastIndex];
+        spriteRenderer.sprite = fixedSprites[lastIndex];
     }
 
+    //This function returns the index associated with the direction that the object is facing and the side that should be showing to the camera
     private int GetIndex(float angle)
     {
         if(angle >= -45f && angle <= 45f) //front
@@ -56,12 +56,13 @@ public class AngleToPlayer : MonoBehaviour
         return lastIndex;
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, transform.forward);
+    //[NOTE] the below function helps with checking angles if needed
+    // void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawRay(transform.position, transform.forward);
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, targetPos);
-    }
+    //     Gizmos.color = Color.blue;
+    //     Gizmos.DrawLine(transform.position, targetPos);
+    // }
 }

@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {   
-        anim.SetFloat("spriteRot", angleToPlayer.lastIndex);
+        anim.SetFloat("spriteRot", angleToPlayer.lastIndex); //handles which animation to play based on direction facing player
 
         if(player != null)
         {

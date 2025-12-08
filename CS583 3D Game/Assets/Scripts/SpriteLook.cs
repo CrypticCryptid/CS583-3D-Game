@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpriteLook : MonoBehaviour
+public class SpriteLook : MonoBehaviour
 {
     private Transform target;
-    public bool canLookVertically;
+    public bool canLookVertically; //if TRUE, the sprite will ALWAYS appear flat to the camera
 
     void Start()
     {
@@ -14,6 +12,7 @@ public class EnemySpriteLook : MonoBehaviour
 
     void Update()
     {
+        //this if statement calculates how the sprite should appear to the camera based on the bool
         if(canLookVertically)
         {
             transform.LookAt(target);
