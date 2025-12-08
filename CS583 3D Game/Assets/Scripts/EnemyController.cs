@@ -9,10 +9,6 @@ public class EnemyController : MonoBehaviour
     private Animator anim;
     private AngleToPlayer angleToPlayer;
 
-    //[!!!] TEMPORARY!!!
-    private Vector4 ranColor;
-    SpriteRenderer sr;
-
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -21,11 +17,6 @@ public class EnemyController : MonoBehaviour
 
         anim = GetComponentInChildren<Animator>();
         angleToPlayer = GetComponent<AngleToPlayer>();
-
-        //[!!!] TEMPORARY!!!
-        ranColor = new Vector4(Random.value, Random.value, Random.value, 1f);
-        sr = GetComponentInChildren<SpriteRenderer>();
-        sr.color = ranColor;
     }
 
     void Update()

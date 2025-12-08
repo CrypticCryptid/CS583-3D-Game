@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
         EnemyStats target = other.GetComponent<EnemyStats>();
         if (target != null)
         {
-            target.takeDamage(damage);
+            target.TakeDamage(damage);
         }
 
         // destroy bullet on hit — important!

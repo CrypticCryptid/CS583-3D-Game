@@ -1,49 +1,25 @@
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour
+public class EnemyStats : Stats, ITakeDamage
 {
-    private Renderer rend;
-
     [Header("Stats")]
-    public float maxHealth = 100f;
-    public float currentHealth;
-    public float damage = 10f;
-    public float speed = 3f;
-    public float resistance = 0f;
-    public int pointValue = 10;
+    public int pointValue;
 
-
-    void Start()
+    protected override void Start()
     {
+        //assign stuff
+        maxHealth = 100f;
+        damage = 10f;
+        speed = 1f;
+        resistance = 0f;
+        pointValue = 10;
+
         currentHealth = maxHealth;
-        rend = GetComponent<Renderer>();
-        if (rend != null)
-        {
-            rend.material.color = Color.green;
-        }
     }
 
-    public void Die()
+    public override void Die()
     {
         // Handle enemy death
         Destroy(gameObject);
     }
-    public void takeDamage(float amount)
-    {
-        float effectiveDamage = amount * (1 - resistance);
-        currentHealth -= effectiveDamage;
-
-        
-        if (rend != null)
-        {
-            float t = Mathf.Clamp01(currentHealth / maxHealth);
-            rend.material.color = Color.Lerp(Color.red, Color.green, t);
-        }
-
-        if (currentHealth <= 0f)
-        {
-            Die();
-        }
-    }
-
 }
