@@ -16,8 +16,25 @@ public class Target : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(10f);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameManager.Instance.ScoreUpdate("Player");
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            GameManager.Instance.Reset();
+        }
+    }
     public void TakeDamage(float amount)
     {
+        Debug.Log("Target Hit");
         currentHealth -= amount;
 
         // Visual feedback: green → red as health goes down
@@ -35,6 +52,7 @@ public class Target : MonoBehaviour
 
     void Die()
     {
+        GameManager.Instance.ScoreUpdate("Enemy");
         Destroy(gameObject); // JUST destroys itself
     }
 }

@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         // destroy bullet after some time so it doesn't live forever
+        Debug.Log("Bullet Fired");
         Destroy(gameObject, lifeTime);
     }
 
@@ -24,6 +25,7 @@ public class Bullet : MonoBehaviour
         ITakeDamage target = other.GetComponent<ITakeDamage>();
         if (target != null)
         {
+            
             target.TakeDamage(damage);
         }
 
