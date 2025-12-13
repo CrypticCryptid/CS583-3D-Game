@@ -5,9 +5,16 @@ public class SpriteLook : MonoBehaviour
     private Transform target;
     public bool canLookVertically; //if TRUE, the sprite will ALWAYS appear flat to the camera
 
+    public bool castsShadows;
+
     void Start()
     {
         target = FindObjectOfType<PlayerMovement>().transform;
+        
+        if(GetComponent<SpriteRenderer>() && castsShadows)
+        {
+            GetComponent<SpriteRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        }
     }
 
     void Update()
