@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Check if we hit a target
-        Target target = other.GetComponent<Target>();
+        ITakeDamage target = other.GetComponent<ITakeDamage>();
         if (target != null)
         {
             target.TakeDamage(damage);
