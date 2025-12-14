@@ -5,15 +5,15 @@ public class Gun : MonoBehaviour
     public Camera fpsCam;
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float fireRate = 5f; // bullets per second
+    public float fireRate = 10f; // bullets per second
 
     private float nextTimeToFire = 0f;
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+        if ((Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1")) && Time.time >= nextTimeToFire)
         {
-            nextTimeToFire = Time.time + 1f / fireRate;
+            nextTimeToFire = Time.time + 0.5f / fireRate;
             Shoot();
         }
     }
