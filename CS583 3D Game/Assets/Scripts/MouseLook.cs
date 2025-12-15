@@ -27,4 +27,14 @@ public class MouseLook : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); //rotates camera vertically
         playerBody.Rotate(Vector3.up * mouseX); //rotates camera horizontally
     }
+
+    public void SetSensitivity(float value)
+    {
+        mouseSensitivity = value;
+    }
+
+    public float GetSensitivity()
+    {
+        return mouseSensitivity;
+    }
 }

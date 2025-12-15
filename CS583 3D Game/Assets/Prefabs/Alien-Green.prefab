@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 110343128610270103}
   m_Layer: 0
   m_Name: Alien-Green
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,6 +231,9 @@ MonoBehaviour:
   speed: 1
   resistance: 0
   pointValue: 10
+  invulnerabilityDuration: 0.5
+  blinkInterval: 0.075
+  spriteRenderer: {fileID: 7637212298502475729}
 --- !u!114 &110343128610270103
 MonoBehaviour:
   m_ObjectHideFlags: 0
