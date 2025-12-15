@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyStats : Stats, ITakeDamage
@@ -6,6 +8,11 @@ public class EnemyStats : Stats, ITakeDamage
     public int pointValue;
 
     private WaveManager manager;
+
+    public float invulnerabilityDuration = 0.5f;
+    public float blinkInterval = 0.075f;
+    private bool isInvulnerable = false;
+    public SpriteRenderer spriteRenderer;
 
     protected override void Start()
     {
@@ -29,5 +36,38 @@ public class EnemyStats : Stats, ITakeDamage
     public void SetManager(WaveManager obj)
     {
         manager = obj;
+    }
+
+    public override void TakeDamage(float amount)
+    {
+        if (isInvulnerable) return;
+
+        float effectiveDamage = amount * (1 - resistance);
+        currentHealth -= effectiveDamage;
+        
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            StartCoroutine(InvulnerabilityFrames());
+        }
+    }
+
+    private IEnumerator InvulnerabilityFrames()
+    {
+        isInvulnerable = true;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < invulnerabilityDuration)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(blinkInterval);
+            elapsedTime += blinkInterval;
+        }
+
+        spriteRenderer.enabled = true;
+        isInvulnerable = false;
     }
 }

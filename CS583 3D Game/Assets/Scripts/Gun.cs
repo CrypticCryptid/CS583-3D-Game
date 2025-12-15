@@ -14,6 +14,9 @@ public class Gun : MonoBehaviour
     public float flareRanInterval;
     private float ranInterval;
 
+    bool isShooting;
+    bool isReloading;
+
     Animator anim;
 
     void Start()
@@ -23,7 +26,7 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && !isReloading)
         {
             if (Time.time >= nextTimeToFire)
             {
@@ -31,19 +34,21 @@ public class Gun : MonoBehaviour
                 Shoot();
             }
 
-            anim.SetBool("isShooting", true);
-            muzzleFlare.gameObject.SetActive(true);
+            isShooting = true;
         } 
         else
         {
-            anim.SetBool("isShooting", false);
-            muzzleFlare.gameObject.SetActive(false);
+            isShooting = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && !isShooting)
         {
+           isReloading = true;
            anim.SetBool("isReloading", true); 
         }
+
+        anim.SetBool("isShooting", isShooting);
+        muzzleFlare.gameObject.SetActive(isShooting);
     }
 
     void LateUpdate()
@@ -79,6 +84,7 @@ public class Gun : MonoBehaviour
 
     public void EndReloadAnim()
     {
+        isReloading = false;
         anim.SetBool("isReloading", false);
     }
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2670854771731357136}
   m_Layer: 0
   m_Name: Alien-Red
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +111,9 @@ MonoBehaviour:
   speed: 1
   resistance: 0
   pointValue: 10
+  invulnerabilityDuration: 0.5
+  blinkInterval: 0.075
+  spriteRenderer: {fileID: 4064816755403457800}
 --- !u!114 &2670854771731357136
 MonoBehaviour:
   m_ObjectHideFlags: 0
