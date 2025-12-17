@@ -19,6 +19,8 @@ public class Gun : MonoBehaviour
 
     Animator anim;
 
+    public GameObject flashLight;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -49,6 +51,11 @@ public class Gun : MonoBehaviour
 
         anim.SetBool("isShooting", isShooting);
         muzzleFlare.gameObject.SetActive(isShooting);
+
+        if(Input.GetButtonDown("Fire2"))
+        {
+            flashLight.SetActive(!flashLight.activeInHierarchy);
+        }
     }
 
     void LateUpdate()
