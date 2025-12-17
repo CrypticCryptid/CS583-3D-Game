@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3008363174053501069}
   - component: {fileID: 4138620962196427369}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5684409497176947470}
   - component: {fileID: 5569256988106424301}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gel_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6661288490134234038}
   - component: {fileID: 1564482868118703951}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gel_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4458200485526254002}
   - component: {fileID: 887914322871290526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5884320360603134263}
   - component: {fileID: 6078305975561541784}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gel_Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 579102353356464064}
   - component: {fileID: 2612924266835779984}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7805521285452559935}
   - component: {fileID: 8088832639181371106}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5953365803425925518}
   - component: {fileID: 4213400140437385916}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gel_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -843,7 +843,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4685974219007431826}
   - component: {fileID: 3720687144346794412}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

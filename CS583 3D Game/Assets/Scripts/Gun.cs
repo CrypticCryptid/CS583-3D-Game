@@ -1,5 +1,7 @@
 using System.Threading;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using TMPro;
 
 public class Gun : MonoBehaviour
 {
@@ -17,16 +19,26 @@ public class Gun : MonoBehaviour
     bool isShooting;
     bool isReloading;
 
+    public PlayerStats stats;
+    public TextMeshProUGUI ammoText;       // TMP version of ammo text
+    public TextMeshProUGUI reloadText;     // TMP version of reload indicator
+
     Animator anim;
+
+    public GameObject flashLight;
+
+    public SpriteRenderer ammoBar;
+    public Sprite[] ammoBarStages; //index 0 = full, index 9 = empty
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        stats = FindObjectOfType<PlayerStats>();
     }
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && !isReloading)
+        if (Input.GetButton("Fire1") && !isReloading && stats.GetCurrentAmmo() > 0)
         {
             if (Time.time >= nextTimeToFire)
             {
@@ -41,11 +53,22 @@ public class Gun : MonoBehaviour
             isShooting = false;
         }
 
+        if(Input.GetButtonDown("Fire2"))
+        {
+            flashLight.SetActive(!flashLight.activeInHierarchy);
+        }
+
         if (Input.GetKeyDown(KeyCode.R) && !isShooting)
         {
            isReloading = true;
            anim.SetBool("isReloading", true); 
         }
+
+        // Update ammo display "X / ∞"
+        ammoText.text = stats.GetCurrentAmmo() + " / ∞";
+        reloadText.enabled = isReloading;
+
+        UpdateAmmoBar();
 
         anim.SetBool("isShooting", isShooting);
         muzzleFlare.gameObject.SetActive(isShooting);
@@ -79,12 +102,38 @@ public class Gun : MonoBehaviour
         Transform camT = fpsCam.transform;
         Quaternion bulletRotation = Quaternion.LookRotation(camT.forward);
 
-        Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        Bullet bullet = newBullet.GetComponent<Bullet>();
+
+        if (bullet == null)
+        {
+            Debug.LogError("New bullet has no Bullet component!");
+        }
+        else if (stats == null)
+        {
+            Debug.LogError("Shooter has no PlayerStats!");
+        }
+        else if (bullet != null)
+        {
+            bullet.damage = stats.damage;
+        }
+
+        stats.ChangeAmmo(-1);
     }
 
     public void EndReloadAnim()
     {
         isReloading = false;
+        stats.SetAmmoMax();
         anim.SetBool("isReloading", false);
+    }
+
+    void UpdateAmmoBar()
+    {
+        float fraction = (float)stats.GetCurrentAmmo() / stats.maxAmmo;
+        int stage = Mathf.FloorToInt((1f - fraction) * ammoBarStages.Length);
+
+        stage = Mathf.Clamp(stage, 0, ammoBarStages.Length - 1);
+        ammoBar.sprite = ammoBarStages[stage];
     }
 }
