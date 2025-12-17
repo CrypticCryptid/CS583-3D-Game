@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,6 +22,8 @@ public class EnemyController : MonoBehaviour
 
         anim = GetComponentInChildren<Animator>();
         angleToPlayer = GetComponent<AngleToPlayer>();
+
+        StartCoroutine(RandomNoiseRoutine());
     }
 
     void Update()
@@ -41,6 +44,7 @@ public class EnemyController : MonoBehaviour
                 ITakeDamage damageReceiver = currentTarget.GetComponent<ITakeDamage>();
                 if (damageReceiver != null)
                 {
+                    FindObjectOfType<AudioManager>().PlayRanPitch("PlayerHurt");
                     damageReceiver.TakeDamage(GetComponent<EnemyStats>().damage);
                 }
 
@@ -49,6 +53,25 @@ public class EnemyController : MonoBehaviour
         }
 
         //animations called later will have correct index
+    }
+
+    IEnumerator RandomNoiseRoutine()
+    {
+        while (true)
+        {
+            float waitTime = Random.Range(5f, 25f);
+            yield return new WaitForSeconds(waitTime);
+            if (Random.value <= 0.7f)
+            {
+                if(Random.value  <= 0.7f)
+                    FindObjectOfType<AudioManager>().PlayRanPitch("AlienSpeak1");
+                else if(Random.value  <= 0.7f)
+                    FindObjectOfType<AudioManager>().PlayRanPitch("AlienSpeak2");
+                else if(Random.value  <= 0.7f)
+                    FindObjectOfType<AudioManager>().PlayRanPitch("AlienSpeak3");
+            }
+                
+        }
     }
 
     void OnTriggerEnter(Collider other)

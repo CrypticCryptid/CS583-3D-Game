@@ -29,10 +29,12 @@ public class PauseMenu : MonoBehaviour
         {
             if (GameIsPaused)
             {
+                FindObjectOfType<AudioManager>().Play("PauseExit");
                 Resume();
             }
             else
             {
+                FindObjectOfType<AudioManager>().Play("PauseEnter");
                 Pause();
             }
         }
@@ -42,6 +44,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        FindObjectOfType<AudioManager>().Play("PauseExit");
         pauseMenuUI.SetActive(false);
         settingMenuUI.SetActive(false);
         Time.timeScale = 1f;

@@ -25,7 +25,7 @@ public class PlayerStats : Stats, ITakeDamage
     {
         //assign stuff
         maxHealth = 100f;
-        damage = 100f;
+        damage = 25f;
         speed = 3f;
         resistance = 0f;
         pointValue = 25;
@@ -72,6 +72,7 @@ public class PlayerStats : Stats, ITakeDamage
     public override void Die()
     {
         // Handle death
+        FindObjectOfType<AudioManager>().Play("PlayerDeath");
         StartCoroutine(RespawnCoroutine());
     }
 

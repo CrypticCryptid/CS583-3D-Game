@@ -2,6 +2,7 @@ using System.Threading;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class Gun : MonoBehaviour
 {
@@ -42,12 +43,19 @@ public class Gun : MonoBehaviour
         {
             if (Time.time >= nextTimeToFire)
             {
+                StartCoroutine(ShootRoutine());
                 nextTimeToFire = Time.time + 0.5f / fireRate;
                 Shoot();
             }
 
             isShooting = true;
-        } 
+        }
+        else if(Input.GetButton("Fire1") && stats.GetCurrentAmmo() <= 0 && !isReloading)
+        {
+            // Play empty clip sound
+            FindObjectOfType<AudioManager>().PlayRanPitch("GunEmpty");
+            isShooting = false;
+        }
         else
         {
             isShooting = false;
@@ -55,12 +63,14 @@ public class Gun : MonoBehaviour
 
         if(Input.GetButtonDown("Fire2"))
         {
+            FindObjectOfType<AudioManager>().PlayRanPitch("Flashlight");
             flashLight.SetActive(!flashLight.activeInHierarchy);
         }
 
         if (Input.GetKeyDown(KeyCode.R) && !isShooting)
         {
-           isReloading = true;
+            FindObjectOfType<AudioManager>().PlayRanPitch("Reload");
+            isReloading = true;
            anim.SetBool("isReloading", true); 
         }
 
@@ -90,6 +100,11 @@ public class Gun : MonoBehaviour
         }
     }
 
+    IEnumerator ShootRoutine()
+    {
+        FindObjectOfType<AudioManager>().PlayRanPitch("LaserShot");
+        yield return null;
+    }
     void Shoot()
     {
         if (bulletPrefab == null || firePoint == null || fpsCam == null)
@@ -98,12 +113,15 @@ public class Gun : MonoBehaviour
             return;
         }
 
+
         // Use camera direction so bullet goes where you're looking
         Transform camT = fpsCam.transform;
         Quaternion bulletRotation = Quaternion.LookRotation(camT.forward);
 
+        
         GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
         Bullet bullet = newBullet.GetComponent<Bullet>();
+
 
         if (bullet == null)
         {
