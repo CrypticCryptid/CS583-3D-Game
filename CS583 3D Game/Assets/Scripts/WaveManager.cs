@@ -20,6 +20,11 @@ public class WaveManager : MonoBehaviour
     private int[] waveIncrements; //pair indexes with templates
     private int waveNum;
 
+    [SerializeField]
+    private GameObject spawnEffect;
+    [SerializeField]
+    private float effectLife;
+
     void Start()
     {
         currTemp = templates[0];
@@ -60,6 +65,9 @@ public class WaveManager : MonoBehaviour
             GameObject enemy = Instantiate(PickEnemy(), spawnPoints[ranPos].position, Quaternion.identity);
             enemy.GetComponent<EnemyStats>().SetManager(this);
             curEnemies.Add(enemy);
+
+            GameObject effect = Instantiate(spawnEffect, spawnPoints[ranPos].position, Quaternion.identity);
+            Destroy(effect, effectLife);
         }
 
         waveNum++;
