@@ -8,6 +8,8 @@ public class PlayerStats : Stats, ITakeDamage
 {
     [Header("Stats")]
     public int pointValue;
+    public int maxAmmo;
+    private int currAmmo;
 
     public Transform respawnPoint;
     public GameObject hitScreen;
@@ -30,6 +32,7 @@ public class PlayerStats : Stats, ITakeDamage
 
         
         currentHealth = maxHealth;
+        currAmmo = maxAmmo;
         SetHP(this);
     }
 
@@ -83,23 +86,7 @@ public class PlayerStats : Stats, ITakeDamage
         transform.position = respawnPoint.position;
         transform.rotation = respawnPoint.rotation;
     }
-
-    private void OnControllerColliderHit(ControllerColliderHit other)
-    {
-        if (!other.gameObject.CompareTag("Enemy"))
-            return;
-
-        Stats enemyStats = other.gameObject.GetComponent<Stats>();
-        if (enemyStats == null)
-            enemyStats = other.gameObject.GetComponentInParent<Stats>();
-
-        if (enemyStats == null)
-        {
-            return;
-        }
-
-        TakeDamage(enemyStats.damage);
-    }
+    
     public override void TakeDamage(float amount)
     {
         if (isInvulnerable) return;
@@ -120,6 +107,21 @@ public class PlayerStats : Stats, ITakeDamage
         {
             StartCoroutine(InvulnerabilityFrames());
         }
+    }
+
+    public void SetAmmoMax()
+    {
+        currAmmo = maxAmmo;
+    }
+
+    public void ChangeAmmo(int value) //use negatives to decrease
+    {
+        currAmmo += value;
+    }
+
+    public int GetCurrentAmmo()
+    {
+        return currAmmo;
     }
 
     private IEnumerator DamageFlashRoutine()

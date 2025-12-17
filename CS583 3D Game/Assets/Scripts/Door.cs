@@ -12,6 +12,7 @@ public class Door : MonoBehaviour
     public float stoppingDistance;
 
     bool doorOpen;
+    int occupants = 0;
 
     public SpriteRenderer[] doorLocks;
     public Sprite lockOpen;
@@ -49,17 +50,36 @@ public class Door : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") || other.CompareTag("Enemy"))
+        if (other.CompareTag("Player"))
         {
+            occupants++;
+            doorOpen = true;
+        } 
+        else if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyStats>().SetDoor(this);
+            occupants++;
             doorOpen = true;
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player") || other.CompareTag("Enemy"))
+        if (other.CompareTag("Player") || other.CompareTag("Enemy"))
         {
-            doorOpen = false;
+            CheckToClose();
         }
+        else if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyStats>().SetDoor(null);
+            CheckToClose();
+        }
+    }
+
+    public void CheckToClose()
+    {
+        occupants--;
+        if (occupants <= 0)
+            doorOpen = false;
     }
 }

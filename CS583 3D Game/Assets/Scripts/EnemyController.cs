@@ -9,6 +9,10 @@ public class EnemyController : MonoBehaviour
     private Animator anim;
     private AngleToPlayer angleToPlayer;
 
+    public float attackInterval = 1.0f;
+    private float attackCooldown = 0f;
+    private GameObject currentTarget = null;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -28,6 +32,41 @@ public class EnemyController : MonoBehaviour
             agent.SetDestination(player.position); //used to track player
         }
 
+        if (currentTarget != null)
+        {
+            attackCooldown -= Time.deltaTime;
+
+            if (attackCooldown <= 0f)
+            {
+                ITakeDamage damageReceiver = currentTarget.GetComponent<ITakeDamage>();
+                if (damageReceiver != null)
+                {
+                    damageReceiver.TakeDamage(GetComponent<EnemyStats>().damage);
+                }
+
+                attackCooldown = attackInterval;
+            }
+        }
+
         //animations called later will have correct index
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Hit player");
+            currentTarget = other.gameObject;
+            attackCooldown = 0f;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == currentTarget)
+        {
+            currentTarget = null;
+            attackCooldown = 0f;
+        }
     }
 }

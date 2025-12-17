@@ -8,6 +8,7 @@ public class EnemyStats : Stats, ITakeDamage
     public int pointValue;
 
     private WaveManager manager;
+    private Door door;
 
     public float invulnerabilityDuration = 0.5f;
     public float blinkInterval = 0.075f;
@@ -30,6 +31,10 @@ public class EnemyStats : Stats, ITakeDamage
     {
         // Handle enemy death
         manager.RemoveEnemy(gameObject);
+
+        if(door != null)
+            door.CheckToClose();
+
         Destroy(gameObject);
     }
 
@@ -38,6 +43,10 @@ public class EnemyStats : Stats, ITakeDamage
         manager = obj;
     }
 
+    public void SetDoor(Door obj)
+    {
+        door = obj;
+    }
    
     public override void TakeDamage(float amount)
     {
