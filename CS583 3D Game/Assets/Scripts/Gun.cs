@@ -1,4 +1,5 @@
 using System.Threading;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -79,7 +80,22 @@ public class Gun : MonoBehaviour
         Transform camT = fpsCam.transform;
         Quaternion bulletRotation = Quaternion.LookRotation(camT.forward);
 
-        Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        Bullet bullet = newBullet.GetComponent<Bullet>();
+        PlayerStats stats = GetComponentInParent<PlayerStats>();
+
+        if (bullet == null)
+        {
+            Debug.LogError("New bullet has no Bullet component!");
+        }
+        if (stats == null)
+        {
+            Debug.LogError("Shooter has no PlayerStats!");
+        }
+        else if (bullet != null)
+        {
+            bullet.damage = stats.damage;
+        }
     }
 
     public void EndReloadAnim()

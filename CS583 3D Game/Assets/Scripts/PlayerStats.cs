@@ -11,25 +11,61 @@ public class PlayerStats : Stats, ITakeDamage
 
     public Transform respawnPoint;
     public GameObject hitScreen;
-    public TextMeshProUGUI healthText;
 
     public float invulnerabilityDuration = 0.5f;
     public float blinkInterval = 0.075f;
     private bool isInvulnerable = false;
 
+    public Slider hpSlider;
+    Coroutine hpDrain;
+
     protected override void Start()
     {
         //assign stuff
         maxHealth = 100f;
-        damage = 0f;
-        speed = 1f;
+        damage = 100f;
+        speed = 3f;
         resistance = 0f;
         pointValue = 25;
 
+        
         currentHealth = maxHealth;
-        healthText.text = "Health: " + currentHealth.ToString("F0");
+        SetHP(this);
     }
 
+    public void SetHP(PlayerStats player)
+    {
+        hpSlider.maxValue = player.maxHealth;
+        hpSlider.value = player.currentHealth;
+    }
+    //Function to update HP on HUD
+    public void UpdateHP(float hp)
+    {
+        //Stop any existing HP drain coroutine
+        if (hpDrain != null)
+        {
+            StopCoroutine(hpDrain);
+        }
+        hpDrain = StartCoroutine(DrainHP(hpSlider.value, hp, 0.4f));
+    }
+
+    //Function to animate HP drain over time
+    IEnumerator DrainHP(float from, float to, float duration)
+    {
+        float elapsed = 0f;
+        // While elapsed time is less than duration, we find HP value
+        while (elapsed < duration)
+        {
+            // Increment elapsed time
+            elapsed += Time.deltaTime;
+            //Lessen HP value based on elapsed time, using Mathf.Lerp for smooth transition
+            hpSlider.value = Mathf.Lerp(from, to, elapsed / duration);
+            yield return null;
+        }
+        //Ensure HP is set to final value
+        hpSlider.value = to;
+        hpDrain = null;
+    }
     public override void Die()
     {
         // Handle death
@@ -42,8 +78,8 @@ public class PlayerStats : Stats, ITakeDamage
         yield return new WaitForSeconds(0f);
         // Respawn logic
         currentHealth = maxHealth;
-
-        healthText.text = "Health: " + currentHealth.ToString("F0");
+        UpdateHP(currentHealth);
+        //Reset Ammo As well
         transform.position = respawnPoint.position;
         transform.rotation = respawnPoint.rotation;
     }
@@ -74,7 +110,8 @@ public class PlayerStats : Stats, ITakeDamage
         float effectiveDamage = amount * (1 - resistance);
         currentHealth -= effectiveDamage;
 
-        healthText.text = "Health: " + currentHealth.ToString("F0");
+        UpdateHP(currentHealth);
+        //healthText.text = "Health: " + currentHealth.ToString("F0");
         if (currentHealth <= 0)
         {
             Die();
@@ -92,7 +129,7 @@ public class PlayerStats : Stats, ITakeDamage
         while (elapsedTime < flashDuration)
         {
             var color = hitScreen.GetComponent<Image>().color;
-            color.a = Mathf.Lerp(0.5f, 0f, elapsedTime / flashDuration);
+            color.a = Mathf.Lerp(invulnerabilityDuration, 0f, elapsedTime / flashDuration);
             hitScreen.GetComponent<Image>().color = color;
             elapsedTime += Time.deltaTime;
             yield return null;
