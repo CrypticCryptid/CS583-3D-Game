@@ -5,7 +5,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private CharacterController controller;
 
-    public float speed = 12f; //get from stats later
+    private PlayerStats Stats;
+
+    public float speed;
     
     [SerializeField]
     private float gravity = -9.81f;
@@ -23,7 +25,12 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 fallVelocity;
     bool  isGrounded;
-    
+
+    private void Start()
+    {
+        Stats = GetComponent<PlayerStats>();
+        speed = Stats.speed;
+    }
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //detects if the player is near a "Ground"-layer object

@@ -38,6 +38,7 @@ public class EnemyStats : Stats, ITakeDamage
         manager = obj;
     }
 
+   
     public override void TakeDamage(float amount)
     {
         if (isInvulnerable) return;
