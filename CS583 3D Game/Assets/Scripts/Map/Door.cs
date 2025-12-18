@@ -52,11 +52,13 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            FindObjectOfType<AudioManager>().Play("DoorOpen");
             occupants++;
             doorOpen = true;
         } 
         else if (other.CompareTag("Enemy"))
         {
+            //FindObjectOfType<AudioManager>().Play("DoorOpen");
             other.GetComponent<EnemyStats>().SetDoor(this);
             occupants++;
             doorOpen = true;
@@ -65,12 +67,18 @@ public class Door : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Enemy"))
+        if (other.CompareTag("Player"))
+        {
+            FindObjectOfType<AudioManager>().Play("DoorOpen");
+            CheckToClose();
+        }
+        else if (other.CompareTag("Player") || other.CompareTag("Enemy"))
         {
             CheckToClose();
         }
         else if (other.CompareTag("Enemy"))
         {
+            //FindObjectOfType<AudioManager>().Play("DoorOpen");
             other.GetComponent<EnemyStats>().SetDoor(null);
             CheckToClose();
         }

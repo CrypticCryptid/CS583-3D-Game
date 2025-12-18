@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,6 +22,8 @@ public class EnemyController : MonoBehaviour
 
         anim = GetComponentInChildren<Animator>();
         angleToPlayer = GetComponent<AngleToPlayer>();
+
+        
     }
 
     void Update()
@@ -41,6 +44,7 @@ public class EnemyController : MonoBehaviour
                 ITakeDamage damageReceiver = currentTarget.GetComponent<ITakeDamage>();
                 if (damageReceiver != null)
                 {
+                    FindObjectOfType<AudioManager>().PlayRanPitch("PlayerHurt");
                     damageReceiver.TakeDamage(GetComponent<EnemyStats>().damage);
                 }
 
@@ -50,6 +54,8 @@ public class EnemyController : MonoBehaviour
 
         //animations called later will have correct index
     }
+
+    
 
     void OnTriggerEnter(Collider other)
     {

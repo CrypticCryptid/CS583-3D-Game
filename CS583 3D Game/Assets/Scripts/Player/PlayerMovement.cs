@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         //allows player to jump, using physics
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
+            FindObjectOfType<AudioManager>().Play("PlayerJump");
             fallVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
