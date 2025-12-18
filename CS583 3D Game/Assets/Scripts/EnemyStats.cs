@@ -29,6 +29,8 @@ public class EnemyStats : Stats, ITakeDamage
 
     public override void Die()
     {
+        base.Die();
+
         // Handle enemy death
         manager.RemoveEnemy(gameObject);
 

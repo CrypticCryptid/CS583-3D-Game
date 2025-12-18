@@ -28,7 +28,7 @@ public class Stats : MonoBehaviour, ITakeDamage
 
     public virtual void Die()
     {
-        Debug.Log(name + " has died.");
+        GameManager.Instance.ScoreUpdate(transform.tag);
     }
 
     public virtual void TakeDamage(float amount)
