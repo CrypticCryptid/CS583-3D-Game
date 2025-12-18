@@ -13,6 +13,7 @@ public class Stats : MonoBehaviour, ITakeDamage
     public float damage = 10f;
     public float speed = 3f;
     public float resistance = 0f;
+    public int pointValue;
 
     protected virtual void Start()
     {
@@ -28,7 +29,7 @@ public class Stats : MonoBehaviour, ITakeDamage
 
     public virtual void Die()
     {
-        Debug.Log(name + " has died.");
+        GameManager.Instance.ScoreUpdate(transform.tag, pointValue);
     }
 
     public virtual void TakeDamage(float amount)
