@@ -72,7 +72,6 @@ public class PlayerStats : Stats, ITakeDamage
     public override void Die()
     {
         // Handle death
-        base.Die();
         StartCoroutine(RespawnCoroutine());
     }
 

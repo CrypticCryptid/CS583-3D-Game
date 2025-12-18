@@ -11,7 +11,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
 
     public string menuName;
-    public string gameName;
 
     public GameObject settingMenuUI;
     public Slider senseSlider;
@@ -19,16 +18,14 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        GameIsPaused = false;
-        Time.timeScale = 1f;
-        
         mouseLook = FindObjectOfType<MouseLook>();
+
         senseSlider.value = mouseLook.GetSensitivity();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.GameIsOver)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
             {
@@ -76,9 +73,9 @@ public class PauseMenu : MonoBehaviour
         obj.SetActive(false);
     }
 
-    public void RetryGame()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(gameName);
-    }
+    // public void QuitGame()
+    // {
+    //     Debug.Log("Quitting Game...");
+    //     Application.Quit();
+    // }
 }
