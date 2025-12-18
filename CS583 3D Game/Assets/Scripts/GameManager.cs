@@ -24,16 +24,16 @@ public class GameManager : MonoBehaviour
         GameIsOver = false;
     }
 
-    public void ScoreUpdate(string type)
+    public void ScoreUpdate(string type, int val)
     {
         switch(type)
         {
             case "Enemy":
-                playerScore += 10;
+                playerScore += val;
                 displayedPlayerScore.text = "Player Score: " + playerScore.ToString();
                 break;
             case "Player":
-                enemyScore += 10;
+                enemyScore += val;
                 displayedEnemyScore.text = "Enemy Score: " + enemyScore.ToString();
                 break;
         }

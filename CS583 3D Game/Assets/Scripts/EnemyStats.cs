@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnemyStats : Stats, ITakeDamage
 {
-    [Header("Stats")]
-    public int pointValue;
-
     private WaveManager manager;
     private Door door;
 

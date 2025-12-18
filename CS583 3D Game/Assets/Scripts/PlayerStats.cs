@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class PlayerStats : Stats, ITakeDamage
 {
     [Header("Stats")]
-    public int pointValue;
     public int maxAmmo;
     private int currAmmo;
 
