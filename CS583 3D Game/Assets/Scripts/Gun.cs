@@ -105,6 +105,7 @@ public class Gun : MonoBehaviour
         FindObjectOfType<AudioManager>().PlayRanPitch("LaserShot");
         yield return null;
     }
+    
     void Shoot()
     {
         if (bulletPrefab == null || firePoint == null || fpsCam == null)
@@ -113,15 +114,31 @@ public class Gun : MonoBehaviour
             return;
         }
 
+        // 1) Ray from the center of the screen (crosshair) to find where you're aiming
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        Vector3 targetPoint;
 
-        // Use camera direction so bullet goes where you're looking
-        Transform camT = fpsCam.transform;
-        Quaternion bulletRotation = Quaternion.LookRotation(camT.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
+        {
+            targetPoint = hit.point;          // exact point you are aiming at
+        }
+        else
+        {
+            // nothing hit: aim at a far point straight ahead
+            targetPoint = fpsCam.transform.position + fpsCam.transform.forward * 1000f;
+        }
 
-        
-        GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        // 2) Direction from the gun's FirePoint TO that target point
+        Vector3 direction = (targetPoint - firePoint.position).normalized;
+        Quaternion bulletRotation = Quaternion.LookRotation(direction);
+
+        // 3) Spawn a little in front of the muzzle so it's not inside enemies at close range
+        float spawnOffset = 0.3f; // you can tweak this between 0.3–0.6
+        Vector3 spawnPos = firePoint.position + direction * spawnOffset;
+
+        // 4) Create bullet
+        GameObject newBullet = Instantiate(bulletPrefab, spawnPos, bulletRotation);
         Bullet bullet = newBullet.GetComponent<Bullet>();
-
 
         if (bullet == null)
         {
@@ -131,7 +148,7 @@ public class Gun : MonoBehaviour
         {
             Debug.LogError("Shooter has no PlayerStats!");
         }
-        else if (bullet != null)
+        else
         {
             bullet.damage = stats.damage;
         }
