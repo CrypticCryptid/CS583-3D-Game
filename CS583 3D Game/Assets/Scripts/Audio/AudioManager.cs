@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
     }
 
     void Start() {
-        //Play(themeMusic); //Play music on start
+        Play(themeMusic); //Play music on start
     }
 
     void Update() {

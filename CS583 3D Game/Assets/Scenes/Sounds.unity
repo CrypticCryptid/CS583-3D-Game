@@ -5188,7 +5188,7 @@ MonoBehaviour:
   sounds:
   - name: LaserShot
     clip: {fileID: 8300000, guid: 4b6b0dd2f2012e849a32a210cac33f82, type: 3}
-    volume: 0.453
+    volume: 0.285
     pitch: 1.01
     loop: 0
     startTime: 0
@@ -5330,7 +5330,15 @@ MonoBehaviour:
     startTime: 0
     endTime: 0
     source: {fileID: 0}
-  themeMusic: 
+  - name: GameBGM
+    clip: {fileID: 8300000, guid: 2abe8a644bc37ab4286a5fe17690845c, type: 3}
+    volume: 0.11
+    pitch: 1
+    loop: 0
+    startTime: 0
+    endTime: 0
+    source: {fileID: 0}
+  themeMusic: GameBGM
 --- !u!1001 &459661661
 PrefabInstance:
   m_ObjectHideFlags: 0

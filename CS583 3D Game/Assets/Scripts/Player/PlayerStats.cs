@@ -34,8 +34,27 @@ public class PlayerStats : Stats, ITakeDamage
         currentHealth = maxHealth;
         currAmmo = maxAmmo;
         SetHP(this);
+        StartCoroutine(RandomNoiseRoutine());
     }
 
+    IEnumerator RandomNoiseRoutine()
+    {
+        while (true)
+        {
+            float waitTime = Random.Range(5f, 25f);
+            yield return new WaitForSeconds(waitTime);
+            if (Random.value <= 0.5f)
+            {
+                if (Random.value <= 0.5f)
+                    FindObjectOfType<AudioManager>().PlayRanPitch("AlienSpeak1");
+                else if (Random.value <= 0.5f)
+                    FindObjectOfType<AudioManager>().PlayRanPitch("AlienSpeak2");
+                else if (Random.value <= 0.5f)
+                    FindObjectOfType<AudioManager>().PlayRanPitch("AlienSpeak3");
+            }
+
+        }
+    }
     public void SetHP(PlayerStats player)
     {
         hpSlider.maxValue = player.maxHealth;
