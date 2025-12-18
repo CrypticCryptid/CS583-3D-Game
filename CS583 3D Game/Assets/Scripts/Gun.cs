@@ -92,53 +92,35 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
-    if (bulletPrefab == null || firePoint == null || fpsCam == null)
-    {
-        Debug.LogWarning("Gun is missing references!");
-        return;
+        if (bulletPrefab == null || firePoint == null || fpsCam == null)
+        {
+            Debug.LogWarning("Gun is missing references!");
+            return;
+        }
+
+        // Use camera direction so bullet goes where you're looking
+        Transform camT = fpsCam.transform;
+        Quaternion bulletRotation = Quaternion.LookRotation(camT.forward);
+
+        GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        Bullet bullet = newBullet.GetComponent<Bullet>();
+
+        if (bullet == null)
+        {
+            Debug.LogError("New bullet has no Bullet component!");
+        }
+        else if (stats == null)
+        {
+            Debug.LogError("Shooter has no PlayerStats!");
+        }
+        else if (bullet != null)
+        {
+            bullet.damage = stats.damage;
+        }
+
+        stats.ChangeAmmo(-1);
     }
 
-    // 1) Ray from the center of the screen (crosshair) to find where you're aiming
-    Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-    Vector3 targetPoint;
-
-    if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
-    {
-        targetPoint = hit.point;          // exact point you are aiming at
-    }
-    else
-    {
-        // nothing hit: aim at a far point straight ahead
-        targetPoint = fpsCam.transform.position + fpsCam.transform.forward * 1000f;
-    }
-
-    // 2) Direction from the gun's FirePoint TO that target point
-    Vector3 direction = (targetPoint - firePoint.position).normalized;
-    Quaternion bulletRotation = Quaternion.LookRotation(direction);
-
-    // 3) Spawn a little in front of the muzzle so it's not inside enemies at close range
-    float spawnOffset = 0.3f; // you can tweak this between 0.3–0.6
-    Vector3 spawnPos = firePoint.position + direction * spawnOffset;
-
-    // 4) Create bullet
-    GameObject newBullet = Instantiate(bulletPrefab, spawnPos, bulletRotation);
-    Bullet bullet = newBullet.GetComponent<Bullet>();
-
-    if (bullet == null)
-    {
-        Debug.LogError("New bullet has no Bullet component!");
-    }
-    else if (stats == null)
-    {
-        Debug.LogError("Shooter has no PlayerStats!");
-    }
-    else
-    {
-        bullet.damage = stats.damage;
-    }
-
-    stats.ChangeAmmo(-1);
-    }
     public void EndReloadAnim()
     {
         isReloading = false;

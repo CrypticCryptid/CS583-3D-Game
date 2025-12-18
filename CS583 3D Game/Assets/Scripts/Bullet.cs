@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -11,32 +12,31 @@ public class Bullet : MonoBehaviour
     public GameObject hitEffect;
     public float effectLife;
 
+
     void Update()
     {
-        // move bullet forward along its local Z
+        // move bullet forward every frame
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        // lifetime countdown
-        lifeTime -= Time.deltaTime;
         if (lifeTime <= 0f)
         {
             DestroyBullet();
+        } 
+        else
+        {
+            lifeTime = Time.deltaTime;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Look up the hierarchy for something that can take damage
-        ITakeDamage damageReceiver = other.GetComponentInParent<ITakeDamage>();
-
-        if (damageReceiver != null)
+        if (other.CompareTag("Enemy"))
         {
-            damageReceiver.TakeDamage(damage);
+
+            other.GetComponent<ITakeDamage>().TakeDamage(damage);
             DestroyBullet();
-            return;
         }
 
-        // Still destroy on walls etc.
         if (other.CompareTag("Wall"))
         {
             DestroyBullet();
@@ -45,11 +45,8 @@ public class Bullet : MonoBehaviour
 
     void DestroyBullet()
     {
-        if (hitEffect != null)
-        {
-            GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-            Destroy(effect, effectLife);
-        }
+        GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+        Destroy(effect, effectLife);
 
         Destroy(gameObject);
     }
