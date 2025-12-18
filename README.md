@@ -1,5 +1,5 @@
 # CS583-3D-Game
-Game Name: Control Points
+Game Name: Close Encounters of the 1000th kind
 
 Developers: Krish Jhaveri, Alec Ege, Benjamin Lopez
 
@@ -7,8 +7,8 @@ Game Goal: Player competes against enemies to achieve the max score first. The p
 
 Goals per person:
 
-  Krish will handle Player shooting as well as design of enemies and players. Additionally will oversee animation and level design
+  Krish will handle Player shooting as well as design of enemies and players. Additionally will oversee Menu and UI design, and projectiles
   
-  Alec will handle navigation, such as enemy tracking and movement as well as player movement and camera. Additionally will oversee general player/enemy art and sound
+  Alec will handle navigation, such as enemy tracking and movement as well as player movement and camera. Additionally will oversee art, level design and animation
   
-  Ben will handle Enemy and Player stats, as well as the UI menu to display necessary stats. Additionally oversees general UI Art and level Art
+  Ben will handle Enemy and Player stats, as well as the UI menu to display necessary stats. Additionally oversees sound
