@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private PlayerStats Stats;
-
     public float speed = 50f;
     public float damage = 25f;
     public float lifeTime = 2f;
@@ -26,14 +24,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Look up the hierarchy for something that can take damage
-        ITakeDamage damageReceiver = other.GetComponentInParent<ITakeDamage>();
-
-        if (damageReceiver != null)
+        if(other.CompareTag("Enemy"))
         {
-            damageReceiver.TakeDamage(damage);
+            other.GetComponent<ITakeDamage>().TakeDamage(damage);
             DestroyBullet();
-            return;
         }
 
         // Still destroy on walls etc.
