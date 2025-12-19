@@ -240,7 +240,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3145623207125900365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbf7d2cb8c4db3a40b233db34ce96ca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bd3ee6a727913b40913f096cde2b00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackInterval: 1
@@ -256,11 +256,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8894d32d5ff6004eacb66b78539f61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 5
   damage: 10
-  speed: 1
+  speed: 2
   resistance: 0
-  pointValue: 10
+  pointValue: 3
   invulnerabilityDuration: 0.5
   blinkInterval: 0.075
   spriteRenderer: {fileID: 4135236545785397719}

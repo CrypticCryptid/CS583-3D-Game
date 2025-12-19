@@ -14,13 +14,6 @@ public class EnemyStats : Stats, ITakeDamage
 
     protected override void Start()
     {
-        //assign stuff
-        maxHealth = 100f;
-        damage = 10f;
-        speed = 1f;
-        resistance = 0f;
-        pointValue = 10;
-
         currentHealth = maxHealth;
     }
 
@@ -30,6 +23,7 @@ public class EnemyStats : Stats, ITakeDamage
 
         // Handle enemy death
         manager.RemoveEnemy(gameObject);
+        FindObjectOfType<AudioManager>().Play("AlienDeath");
 
         if(door != null)
             door.CheckToClose();
@@ -51,6 +45,7 @@ public class EnemyStats : Stats, ITakeDamage
     {
         if (isInvulnerable) return;
 
+        FindObjectOfType<AudioManager>().PlayRanPitch("AlienHit");
         float effectiveDamage = amount * (1 - resistance);
         currentHealth -= effectiveDamage;
         

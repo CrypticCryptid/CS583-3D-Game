@@ -3095,11 +3095,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d853f3db69f8b4ca520e868d08104a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  damage: 10
+  maxHealth: 30
+  damage: 1
   speed: 3
   resistance: 0
-  pointValue: 0
+  pointValue: 25
   maxAmmo: 30
   respawnPoint: {fileID: 2134308715}
   hitScreen: {fileID: 670173052}
@@ -5560,9 +5560,9 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 2abe8a644bc37ab4286a5fe17690845c, type: 3}
     volume: 0.11
     pitch: 1
-    loop: 0
+    loop: 1
     startTime: 0
-    endTime: 0
+    endTime: 56
     source: {fileID: 0}
   themeMusic: GameBGM
 --- !u!1001 &459661661

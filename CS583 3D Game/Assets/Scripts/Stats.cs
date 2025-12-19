@@ -8,11 +8,11 @@ public class Stats : MonoBehaviour, ITakeDamage
     protected Renderer rend;
 
     [Header("Stats")]
-    public float maxHealth = 100f;
+    public float maxHealth;
     protected float currentHealth;
-    public float damage = 10f;
-    public float speed = 3f;
-    public float resistance = 0f;
+    public float damage;
+    public float speed;
+    public float resistance;
     public int pointValue;
 
     protected virtual void Start()

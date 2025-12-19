@@ -22,17 +22,29 @@ public class PlayerStats : Stats, ITakeDamage
 
     protected override void Start()
     {
-        //assign stuff
-        maxHealth = 100f;
-        damage = 100f;
-        speed = 3f;
-        resistance = 0f;
-        pointValue = 25;
-
-        
         currentHealth = maxHealth;
         currAmmo = maxAmmo;
         SetHP(this);
+        StartCoroutine(RandomNoiseRoutine());
+    }
+
+    IEnumerator RandomNoiseRoutine()
+    {
+        while (true)
+        {
+            float waitTime = Random.Range(5f, 25f);
+            yield return new WaitForSeconds(waitTime);
+            if (Random.value <= 0.5f)
+            {
+                if (Random.value <= 0.5f)
+                    FindObjectOfType<AudioManager>().PlayRanPitch("AlienSpeak1");
+                else if (Random.value <= 0.5f)
+                    FindObjectOfType<AudioManager>().PlayRanPitch("AlienSpeak2");
+                else if (Random.value <= 0.5f)
+                    FindObjectOfType<AudioManager>().PlayRanPitch("AlienSpeak3");
+            }
+
+        }
     }
 
     public void SetHP(PlayerStats player)
@@ -40,6 +52,7 @@ public class PlayerStats : Stats, ITakeDamage
         hpSlider.maxValue = player.maxHealth;
         hpSlider.value = player.currentHealth;
     }
+
     //Function to update HP on HUD
     public void UpdateHP(float hp)
     {
@@ -72,6 +85,7 @@ public class PlayerStats : Stats, ITakeDamage
     {
         // Handle death
         base.Die();
+        FindObjectOfType<AudioManager>().Play("PlayerDeath");
         StartCoroutine(RespawnCoroutine());
     }
 
