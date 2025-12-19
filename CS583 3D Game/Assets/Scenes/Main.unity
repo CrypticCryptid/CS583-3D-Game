@@ -25814,7 +25814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 113683763}
   menuName: MainMenu
-  gameName: Map
+  gameName: Main
   settingMenuUI: {fileID: 1929956482}
   senseSlider: {fileID: 1429566012}
 --- !u!114 &2120826401
